@@ -131,6 +131,12 @@ nav{
     font-size: 28px;
     cursor: pointer;
 }
+.nav-button a{
+    text-decoration: none;
+    color: var(--text-color-second);
+    font-weight: 500;
+}
+
 .active-link{
     position: relative;
     color: var(--first-color);
@@ -331,13 +337,14 @@ h3{
     font-size: 15px;
     color: #777;
 }
-.about-btn button{
+.about-btn a{
     position: absolute;
     right: 20px;
     bottom: 20px;
     background: var(--first-color);
     color: var(--color-white);
     border-radius: 30px;
+    text-decoration: none;
 }
 .about-btn button:hover{
     background: var(--first-color-hover);
@@ -367,9 +374,13 @@ h3{
 .project-container{
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-evenly;
     gap: 20px;
     flex-wrap: wrap;
+}
+.project-container a{
+    text-decoration: none;
+    color: var(--text-color-second);
 }
 .project-box{
     position: relative;
@@ -393,6 +404,12 @@ h3{
     font-size: 15px;
     color: #777;
 }
+.project-box:hover .btn {
+    background: var(--first-color-hover);
+    color: var(--color-white);
+    position: relative;
+    z-index: 2;
+}
 .project-box::after, .contact-info::after{
     content: "";
     position: absolute;
@@ -415,6 +432,47 @@ h3{
 }
 
 /* ----- CONTACT BOX ----- */
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-white);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 300px;
+}
+
+.alert-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+}
+
+.alert-message {
+    color: var(--text-color-second);
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.alert-action {
+    display: flex;
+    justify-content: center;
+}
+
+.alert-btn {
+    background: var(--first-color);
+    color: var(--color-white);
+    padding: 8px 25px;
+}
+
+.alert-btn:hover {
+    background: var(--first-color-hover);
+}
+
 .contact-info{
     position: relative;
     display: flex;
@@ -656,4 +714,126 @@ footer{
     .input-field{
         width: 100%;
     }
+}
+
+/* Message Popup Styles */
+.flash-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+}
+
+.flash-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-white);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    text-align: center;
+}
+
+.flash-btn {
+    margin-top: 15px;
+    background: var(--first-color);
+    color: var(--color-white);
+}
+
+.flash-btn:hover {
+    background: var(--first-color-hover);
+}
+
+/* Animation for popup */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.message-content {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+/* Modal Popup Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    height: 90vh;
+    margin: 2% auto;
+}
+
+.gallery-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#galleryImage {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.modal-close {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    color: var(--color-white);
+    cursor: pointer;
+    z-index: 1001;
+    transition: 0.3s;
+}
+
+.modal-close:hover {
+    color: var(--first-color);
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--first-color);
+    color: var(--color-white);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.image-description {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--color-white);
+    padding: 15px;
+    margin: 0 20px;
+    border-radius: 10px;
+    text-align: center;
 }

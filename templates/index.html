@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 
@@ -14,6 +14,19 @@
 </head>
 <body>
    <div class="container">
+      <!-- Add this section for flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+         {% if messages %}
+            {% for category, message in messages %}
+               <div class="alert alert-{{ category }}">
+                  <div class="alert-content">
+                     <div class="alert-message">{{ message }}</div>
+                  </div>
+               </div>
+            {% endfor %}
+         {% endif %}
+      {% endwith %}
+
     <!-- --------------- HEADER --------------- -->
       <nav id="header">
         <div class="nav-logo">
@@ -35,13 +48,17 @@
                     <div class="circle"></div>
                 </li>
                 <li class="nav_list">
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <div class="circle"></div>
+                </li>
+                <li class="nav_list">
                     <a href="#contact" class="nav-link">Contact</a>
                     <div class="circle"></div>
                 </li>
             </ul>
         </div>
         <div class="nav-button">
-            <button class="btn">Download CV <i class="uil uil-file-alt"></i></button>
+            <a class="btn" href="{{ url_for('static', filename = 'Genesis D.pdf') }}" download>Download CV <i class="uil uil-file-alt"></i></a>
         </div>
         <div class="nav-menu-btn">
             <i class="uil uil-bars" onclick="myMenuFunction()"></i>
@@ -61,12 +78,12 @@
                 <p>I'm <span class="typedText"></span></p>
             </div>
             <div class="featured-text-info">
-                <p>To leverage my expertise in C#, Python, MySQL database management, and Google Cloud Networking to contribute to a challenging and rewarding role within a dynamic team.
+                <p>Versatile full-stack developer skilled in Python (Flask), PHP, MySQL, C#, JavaScript (React), HTML, and CSS. I design and build systems that address real-world challenges, combining technical expertise with problem-solving skills to deliver practical, scalable solutions.
                 </p>
             </div>
             <div class="featured-text-btn">
-                <button class="btn blue-btn">Hire Me</button>
-                <a class="btn" href="Genesis D.pdf" download>Download CV <i class="uil uil-file-alt"></i></a>
+                <a class="btn blue-btn" href="#contact">Hire Me</a>
+                <a class="btn" href="{{ url_for('static', filename = 'Genesis D.pdf') }}" download>Download CV <i class="uil uil-file-alt"></i></a>
             </div>
             <div class="social_icons">
                 <div class="icon" onclick="window.open('https://www.instagram.com/_esizz?igsh=MTllaWM0cm96MnJmeA==', '_blank')"><i class="uil uil-instagram"></i></div>
@@ -77,7 +94,7 @@
           </div>
           <div class="featured-image">
             <div class="image">
-                <img src="picc.jpg" alt="avatar">
+                <img src="{{ url_for('static', filename = 'picc.jpg') }}" alt="avatar">
             </div>
           </div>
           <div class="scroll-icon-box">
@@ -97,10 +114,11 @@
             <div class="col">
                 <div class="about-info">
                     <h3>My introduction</h3>
-                    <p>I'm Genesis Samson, a software developer with expertise in C# and Python programming languages. My experience also includes managing MySQL databases and working with Google Cloud Networking infrastructure.
+                    <p>I'm Genesis Samson, Full-stack developer with expertise in Python (Flask), PHP, MySQL, C#, JavaScript (React), HTML, and CSS. I specialize in creating systems and applications that solve real-world problems, delivering efficient and reliable solutions within dynamic team environments.
                     </p>
                     <div class="about-btn">
-                        <button class="btn">Download CV <i class="uil uil-import"></i></button>
+                        <a class="btn" href="{{ url_for('static', filename = 'Genesis D.pdf') }}" download>Download CV <i class="uil uil-import"></i></a>
+                        <!-- <button class="btn">Download CV <i class="uil uil-import"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -166,7 +184,30 @@
                 <h3>Business</h3>
                 <label>Ice Delivery</label>
                 <label>2016 - Present</label>
+            </div>
+          </div>
+       </section>
 
+       <section class="section" id = "projects">
+          <div class="top-header">
+              <h1>Projects</h1>
+          </div>
+          <div class="project-container">
+            <div class="project-box">
+                <i class="uil uil-file-alt"></i>
+                <h3>Portfolio</h3>
+                <!-- <label>HTML, CSS, JavaScript</label> -->
+                <a class="btn" href="https://phoenixblaze1209.github.io/FINALSS/" target="_blank">Click to View</a>
+            </div>
+            <div class="project-box">
+                <i class="uil uil-file-alt"></i>
+                <h3>Attendance Management System</h3>
+                <button class="btn" onclick="openGallery()">Click to View</button>
+            </div>
+            <div class="project-box">
+                <i class="uil uil-file-alt"></i>
+                <h3>E-commerce System</h3>
+                <label>In Progress</label>
             </div>
           </div>
        </section>
@@ -182,23 +223,25 @@
              <div class="col">
                 <div class="contact-info">
                     <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
-                    <p><i class="uil uil-envelope"></i> Email: <br>Genesissamson04@gmail.com</p>
+                    <p><i class="uil uil-envelope"></i> Genesissamson04@gmail.com</p>
                     <p><i class="uil uil-phone"></i> Tel: +63-992-6591-846<p>
                 </div>
              </div>
              <div class="col">
-                <div class="form-control">
+                <!-- <div class="form-control"> -->
+                <form action="{{ url_for('contact') }}" method="POST" class="form-control">
                     <div class="form-inputs">
-                        <input type="text" class="input-field" placeholder="Name">
-                        <input type="text" class="input-field" placeholder="Email">
+                        <input type="text" class="input-field" name="name" placeholder="Name">
+                        <input type="text" class="input-field" name="email" placeholder="Email">
                     </div>
                     <div class="text-area">
-                        <textarea placeholder="Message"></textarea>
+                        <textarea placeholder="Message" name="message"></textarea>
                     </div>
                     <div class="form-button">
                         <button class="btn">Send <i class="uil uil-message"></i></button>
                     </div>
-                </div>
+                </form>
+                <!-- </div> -->
              </div>
           </div>
        </section>
@@ -250,6 +293,49 @@
     <script src="https://unpkg.com/scrollreveal"></script>
 
     <!-- ----- MAIN JS ----- -->
-    <script src="main.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+    <!-- Add this modal gallery at the end of body but before scripts -->
+<div id="galleryModal" class="modal">
+    <span class="modal-close" onclick="closeGallery()">&times;</span>
+    <div class="modal-content">
+        <div class="gallery-container">
+            <img id="galleryImage" src="" alt="System screenshot">
+            <p id="imageDescription" class="image-description"></p>
+            <button class="gallery-nav prev" onclick="changeImage(-1)">❮</button>
+            <button class="gallery-nav next" onclick="changeImage(1)">❯</button>
+        </div>
+    </div>
+</div>
+
+<!-- <script>
+    // JavaScript for the image gallery modal
+    let currentImageIndex = 0;
+    const images = [
+        '{{ url_for("static", filename="attendance_management_system_1.png") }}',
+        '{{ url_for("static", filename="attendance_management_system_2.png") }}',
+        '{{ url_for("static", filename="attendance_management_system_3.png") }}'
+    ];
+
+    function openGallery() {
+        currentImageIndex = 0;
+        document.getElementById('galleryImage').src = images[currentImageIndex];
+        document.getElementById('galleryModal').style.display = 'flex';
+    }
+
+    function closeGallery() {
+        document.getElementById('galleryModal').style.display = 'none';
+    }
+
+    function changeImage(direction) {
+        currentImageIndex += direction;
+        if (currentImageIndex < 0) {
+            currentImageIndex = images.length - 1;
+        } else if (currentImageIndex >= images.length) {
+            currentImageIndex = 0;
+        }
+        document.getElementById('galleryImage').src = images[currentImageIndex];
+    }
+</script> -->
 </body>
 </html>
