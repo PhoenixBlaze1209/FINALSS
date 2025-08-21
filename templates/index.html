@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <link rel="shortcut icon" href="{{ url_for('static', filename='logo.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" class="logo-img circle-logo" href="{{ url_for('static', filename='logo.png')}}" type="image/x-icon">
 
     <title>Portfolio | Genesis</title>
 </head>
@@ -30,8 +30,7 @@
     <!-- --------------- HEADER --------------- -->
       <nav id="header">
         <div class="nav-logo">
-            <p class="nav-name">GS</p>
-            <span>.</span>
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="GS Logo" class="logo-img circle-logo">
         </div>
         <div class="nav-menu" id="myNavMenu">
             <ul class="nav_menu_list">
