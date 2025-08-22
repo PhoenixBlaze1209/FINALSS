@@ -31,12 +31,12 @@ def contact():
 
         context = ssl.create_default_context()
 
-        if not name.replace(" ", "").isalpha():
-            flash("Name should only contain letters!", "danger")
-            return redirect(url_for("home") + "#contact")
         
         if not name or not email or not message:
             flash("All fields are required!", "danger")
+            return redirect(url_for("home") + "#contact")
+        if not name.replace(" ", "").isalpha():
+            flash("Name should only contain letters!", "danger")
             return redirect(url_for("home") + "#contact")
         if not email.endswith("@gmail.com"):
             flash("Please use a Gmail address!", "danger")
